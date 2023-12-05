@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <title>Weather App</title>
+</head>
+<body>
+    <div class="weather-box">
+        <div class="main-box">
+            <div class="main-box__top">
+                <p class="main-box__top__week-day">Sunday</p>
+                <p class="main-box__top__date"></p>
+                <p class="main-box__location"></p>
+            </div>
+            <div class="main-box__bottom">
+                <div><img class="main-box__bottom__weather-icon" src="" alt=""></div>
+                <p class="main-box__bottom__temp">20</p>
+                <p class="main-box__bottom__weather-description"></p>
+            </div>
+        </div>
+        <div class="info-box">
+            <div class="search-box">
+                <input class="search-input" placeholder="Location"></input>
+                <div class="search-button">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+            </div>
+            <div class="info-text">
+                <div class="precipitation">
+                    <p>precipitation chance</p>
+                    <p class="precipitation-value"></p>
+                </div>
+                <div class="humidity">
+                    <p>humidity</p>
+                    <p class="humidity-value"></p>
+                </div>
+                <div class="wind">
+                    <p>wind speed</p>
+                    <p class="wind-speed-value"></p>
+                </div>
+            </div>
+            <div class="days-box">
+                <div id="0" class="day-card current-day-card">
+                    <img src="" alt="">
+                    <p class="week-day">Mon</p>
+                    <p class="day-card__temp">16 °C</p>
+                </div>
+                <div id="1" class="day-card">
+                    <img src="" alt="">
+                    <p class="week-day">Mon</p>
+                    <p class="day-card__temp">16 °C</p>
+                </div>
+                <div id="2" class="day-card">
+                    <img src="" alt="">
+                    <p class="week-day">Mon</p>
+                    <p class="day-card__temp">16 °C</p>
+                </div>
+                <div id="3" class="day-card">
+                    <img src="" alt="">
+                    <p class="week-day">Mon</p>
+                    <p class="day-card__temp">16 °C</p>
+                </div>
+                <div id="4" class="day-card">
+                    <img src="" alt="">
+                    <p class="week-day">Mon</p>
+                    <p class="day-card__temp">16 °C</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="index.js" type="module"></script>
+    <script src="https://kit.fontawesome.com/fa7ee79355.js" crossorigin="anonymous"></script>
+</body>
+</html>

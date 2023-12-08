@@ -1,6 +1,6 @@
-import {fetchWeatherData} from './api.js'
+import {fetchWeatherData, fetchImageByCityName} from './api.js'
 
-const searchButton = document.querySelector('.search-button')
+const searchBox = document.querySelector('.search-box')
 const input = document.querySelector('.search-input')
 const infoBox = document.querySelector('.info-box')
 const mainBox = document.querySelector('.main-box')
@@ -45,8 +45,9 @@ function insertWeatherData(data, indexInDataList = 0){
     infoBox.querySelector('.humidity-value').innerHTML = `${data.list[indexInDataList].main.humidity} %`
     infoBox.querySelector('.wind-speed-value').innerHTML = `${data.list[indexInDataList].wind.speed} m/s`
 
+    mainBox.style.backgroundImage = `url(${data.cityImgLink})`
     mainBox.querySelector('.main-box__location').innerHTML = data.city.name
-    mainBox.querySelector('.main-box__bottom__weather-description').innerHTML = data.list[0].weather[0].description
+    mainBox.querySelector('.main-box__bottom__weather-description').innerHTML = data.list[indexInDataList].weather[0].description
     mainBox.querySelector('.main-box__bottom__temp').innerHTML = `${data.list[indexInDataList].main.temp.toFixed(0)}<span>°C</span>`
     mainBox.querySelector('.main-box__top__date').innerHTML = 
     `${date.getUTCDate()} ${months[date.getUTCMonth()]} ${date.getUTCFullYear()}, ${date.toUTCString().match(/\s\d{2}:\d{2}/)}`
@@ -62,35 +63,44 @@ function insertWeatherData(data, indexInDataList = 0){
 }
 
 
-async function searchHandler(){
-    data = await fetchWeatherData(input.value)
-    console.log(data)
-    if (!(data.cod == '200')){
+async function searchHandler(e){
+    e.preventDefault()
+    try{
+        console.log(input.value)
+        data = await fetchWeatherData(input.value)
+        const cityImgData = await fetchImageByCityName(input.value)
+        data.cityImgLink = cityImgData.items[0].link
+        
+    }catch(err){
+        alert(`Error ${err.message}`)
+    }
+    if (data.cod != '200'){
         alert('This city does not exist')
         return
     }
-    infoBox.classList.add('info-box-active')
-    mainBox.querySelector('.main-box__bottom__weather-icon').classList.add('appearance-animetion-class')
-    setTimeout(()=>{
-        mainBox.querySelector('.main-box__bottom__weather-icon').classList.remove('appearance-animetion-class')
-    }, 1000)
-
 
     data.list = data.list.filter((timeStamp) => {
         const timeStampDate = new Date(timeStamp.dt * 1000)
-        return ((timeStampDate.getUTCHours() == 12 && timeStamp != data.list[0]) || timeStamp == data.list[0])
+        return ((timeStampDate.getUTCHours() == 12 && timeStampDate.getUTCDate() != (new Date(data.list[0].dt ** 1000)).getUTCDate()) || timeStamp == data.list[0])
     })
+
+    infoBox.classList.add('info-box-active')
+    infoBox.querySelector('.current-day-card').classList.remove('current-day-card')
+    dayCards[0].classList.add('current-day-card')
+
 
     insertWeatherData(data)
 }
 
-searchButton.addEventListener('click', searchHandler)
 
-input.addEventListener('keydown', (e)=>{
-    if(e.key == 'Enter'){
-        searchHandler()
-    }
-})
+searchBox.addEventListener('submit', searchHandler)
+
+// input.addEventListener('keydown', (e)=>{
+//     if(e.key == 'Enter'){
+//         searchHandler()
+//     }
+// })
+
 
 infoBox.addEventListener('transitionend', () => {
     infoText.classList.add('info-text-active')
@@ -104,7 +114,7 @@ infoBox.addEventListener('transitionend', () => {
 
 dayCards.forEach((dayCards) => {
     dayCards.addEventListener('click', (e) => {
-        infoBox.querySelector('.current-day-card')?.classList?.remove('current-day-card')
+        infoBox.querySelector('.current-day-card').classList.remove('current-day-card')
         console.log(e.currentTarget)
         e.currentTarget.classList.add('current-day-card')
         insertWeatherData(data, e.currentTarget.id)

@@ -9,24 +9,26 @@
 <body>
     <div class="weather-box">
         <div class="main-box">
-            <div class="main-box__top">
-                <p class="main-box__top__week-day">Sunday</p>
-                <p class="main-box__top__date"></p>
-                <p class="main-box__location"></p>
-            </div>
-            <div class="main-box__bottom">
-                <div><img class="main-box__bottom__weather-icon" src="" alt=""></div>
-                <p class="main-box__bottom__temp">20</p>
-                <p class="main-box__bottom__weather-description"></p>
+            <div class="main-box-inner">
+                <div class="main-box__top">
+                    <p class="main-box__top__week-day">Sunday</p>
+                    <p class="main-box__top__date"></p>
+                    <p class="main-box__location"></p>
+                </div>
+                <div class="main-box__bottom">
+                    <div><img class="main-box__bottom__weather-icon" src="" alt=""></div>
+                    <p class="main-box__bottom__temp">20</p>
+                    <p class="main-box__bottom__weather-description"></p>
+                </div>
             </div>
         </div>
         <div class="info-box">
-            <div class="search-box">
-                <input class="search-input" placeholder="Location"></input>
-                <div class="search-button">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </div>
-            </div>
+                <form class="search-box">
+                    <input class="search-input" placeholder="Location"></input>
+                    <button class="search-button" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
             <div class="info-text">
                 <div class="precipitation">
                     <p>precipitation chance</p>

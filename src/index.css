@@ -97,7 +97,7 @@ html, body{
     transform: scale(1.1) rotateY(10deg);
 }
 
-.main-box-active{
+.main-box_active{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -144,17 +144,17 @@ html, body{
     gap: 10px;
 }
 
-.main-box__top__date{
+.main-box__date{
     display: flex;
     align-items: center;
     gap: 5px;
 }
 
-.main-box__top__week-day{
+.main-box__week-day{
     font-size: 25px;
 }
 
-.main-box__top__date{
+.main-box__date{
     font-size: 16px;
 }
 
@@ -164,12 +164,12 @@ html, body{
     gap: 10px;
 }
 
-.main-box__bottom__temp{
+.main-box__temp{
     font-size: 40px;
     transition: all 1s ease;
 }
 
-.main-box__bottom__weather-icon{
+.main-box__weather-icon{
     scale: 1.6;
     transition: all 1s ease;
 }
@@ -183,7 +183,7 @@ html, body{
     font-size: 20px;
 }
 
-.search-input{
+.search-box__search-input{
     width: 100%;
     height: 40px;
     border-radius: 40px;
@@ -192,7 +192,7 @@ html, body{
     padding-left: 10px;
 }
 
-.search-button{
+.search-box__search-button{
     cursor: pointer;
     color: white;
     font-size: 17px;
@@ -212,12 +212,12 @@ html, body{
     z-index: 2;
 }
 
-.info-box-active{
+.info-box_active{
     height: 400px;
     padding-left: 65px;
 }
 
-.info-text{
+.info-box__info-text{
     display: none;
     width: 100%;
     opacity: 0;
@@ -226,13 +226,13 @@ html, body{
     font-size: 20px;
 }
 
-.info-text div{
+.info-box__info-text div{
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
 }
 
-.info-text-active{
+.info-box__info-text_active{
     display: block;
     opacity: 1;
     @starting-style{
@@ -249,22 +249,22 @@ html, body{
     display: none;
 }
 
-.days-box-active{
+.days-box_active{
     display: flex;
 }
 
-.day-card{
+.days-box__day-card{
     display: none;
     transition: all 0.3s ease;
 }
 
-.day-card img{
+.days-box__day-card img{
     width: 30px;
     height: 30px;
     scale: 1.5;
 }
 
-.day-card-active{
+.days-box__day-card_active{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -280,7 +280,7 @@ html, body{
     }
 }
 
-.day-card:hover, .current-day-card{
+.days-box__day-card:hover, .days-box__day-card_current{
     color: black;
     cursor: pointer;
     scale: 1.1;

@@ -1,4 +1,5 @@
 import {fetchWeatherData, fetchImageByCityName} from './api.js'
+import { iconsURL, months, weekDays } from './constants.js'
 
 const searchBox = document.querySelector('.search-box')
 const input = document.querySelector('.search-box__search-input')
@@ -7,34 +8,19 @@ const mainBox = document.querySelector('.main-box')
 const infoText = document.querySelector('.info-box__info-text')
 const daysBox = document.querySelector('.days-box')
 const dayCards = document.querySelectorAll('.days-box__day-card')
-
-const iconsURL = 'https://openweathermap.org/img/wn/'
-const months = [
-'January', 
-'February',
-'March',
-'April',
-'May',
-'June',
-'July',
-'August',
-'September',
-'October',
-'November',
-'December'
-]
-
-const weekDays = [
-    'Sun',
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-]
-
 let data = {}
+
+
+
+function filterWeaterData(data){
+    const filteredData = {}
+    filteredData.list = data.list.filter((timeStamp) => {
+        const timeStampDate = new Date(timeStamp.dt * 1000)
+        return ((timeStampDate.getUTCHours() == 12 && timeStampDate.getUTCDate() != (new Date(data.list[0].dt ** 1000)).getUTCDate()) || timeStamp == data.list[0])
+    })
+    filteredData.city = data.city
+    return filteredData
+}
 
 
 
@@ -66,30 +52,22 @@ function insertWeatherData(data, indexInDataList = 0){
 async function searchHandler(e){
     e.preventDefault()
     try{
-        console.log(input.value)
-        data = await fetchWeatherData(input.value)
+        const responseData = await fetchWeatherData(input.value)
+        data = filterWeaterData(responseData)
+
         const cityImgData = await fetchImageByCityName(input.value)
         data.cityImgLink = cityImgData.items[0].link
+
+        insertWeatherData(data)
         
     }catch(err){
-        alert(`Error ${err.message}`)
-    }
-    if (data.cod != '200'){
-        alert('This city does not exist')
+        alert(`Error: ${err.message}`)
         return
     }
-
-    data.list = data.list.filter((timeStamp) => {
-        const timeStampDate = new Date(timeStamp.dt * 1000)
-        return ((timeStampDate.getUTCHours() == 12 && timeStampDate.getUTCDate() != (new Date(data.list[0].dt ** 1000)).getUTCDate()) || timeStamp == data.list[0])
-    })
 
     infoBox.classList.add('info-box_active')
     infoBox.querySelector('.days-box__day-card_current')?.classList.remove('days-box__day-card_current')
     dayCards[0].classList.add('days-box__day-card_current')
-
-
-    insertWeatherData(data)
 }
 
 

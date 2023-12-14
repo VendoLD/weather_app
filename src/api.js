@@ -6,7 +6,12 @@ const googleAPIKey = 'AIzaSyAibgbOPAiKqLKmtJB44MDMoIklfpOfCJI'
 
 export async function fetchWeatherData(cityName){
     const res = await fetch(weatherURL + `?q=${cityName}&appid=${weatherAPIKEY}&units=metric`)
-    const data = res.json()
+    const data = await res.json()
+    console.log(data)
+    if (data.cod != '200'){
+        
+        throw Error('This city does not exist')
+    }
     return data
 }
 
